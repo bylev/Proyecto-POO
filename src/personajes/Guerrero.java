@@ -27,12 +27,12 @@ public class Guerrero extends Personaje {
 
     @Override
     public void atacar(Enemigo e) {
-        if (arma != null && !arma.estaRota()) {
-            int danioFinal = fuerza + arma.getDanio();
-            System.out.println(nombre + " ataca a " + e.getNombre() + " con su arma " + arma.getNombre()
+        if (getArma() != null && !getArma().estaRota()) {
+            int danioFinal = fuerza + getArma().getDanio();
+            System.out.println(nombre + " ataca a " + e.getNombre() + " con su arma " + getArma().getNombre()
                     + " infligiendo " + danioFinal + " puntos de daño.");
             e.recibirDanio(danioFinal);
-            arma.reducirDurabilidad(1);
+            getArma().reducirDurabilidad(1);
         } else {
             System.out.println(
                     nombre + " ataca a " + e.getNombre() + " con sus manos infligiendo " + fuerza + " puntos de daño.");
@@ -55,9 +55,9 @@ public class Guerrero extends Personaje {
                 "Vida: " + vidaActual + "/" + vidaMaxima + "\n" +
                 "Daño: " + danio + "\n" +
                 "Defensa: " + defensa + "\n" +
-                "Arma: " + (arma != null ? arma.getNombre() : "Ninguna") + "\n" +
-                "Armadura: " + (armadura != null ? armadura.getNombre() : "Ninguna") + "\n" +
-                "Consumible: " + (consumible != null ? consumible.getNombre() : "Ninguno") + "\n" +
+                "Arma: " + (getArma() != null ? getArma().getNombre() : "Ninguna") + "\n" +
+                "Armadura: " + (getArmadura() != null ? getArmadura().getNombre() : "Ninguna") + "\n" +
+                "Consumible: " + (getConsumible() != null ? getConsumible().getNombre() : "Ninguno") + "\n" +
                 "=========================================";
     }
 }

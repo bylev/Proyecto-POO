@@ -52,4 +52,10 @@ public class Consumible extends Item {
             p.setVidaActual(p.getVidaMaxima());
         System.out.println(nombre + " restaura " + vidaRestaurada + " puntos de vida.");
     }
+
+    @Override
+    public String toString() {
+        return "Consumible: " + getNombre() + " | Estado: "
+                + (cantidad <= 0 ? "ROTA" : getCantidad() + "/" + getCantidad());
+    }
 }

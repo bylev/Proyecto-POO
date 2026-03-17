@@ -69,4 +69,10 @@ public class Arma extends Item implements Durable {
             System.out.println("Arma equipada y lista para usar.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Arma: " + getNombre() + " | Estado: "
+                + (estaRota() ? "ROTA" : getDurabilidadActual() + "/" + getDurabilidadMaxima());
+    }
 }

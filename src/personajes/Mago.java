@@ -47,13 +47,13 @@ public class Mago extends Personaje {
     @Override
     public String toString() {
         return "=============== Mago ===============\n" +
-                "Nombre: " + nombre + "\n" +
-                "Nivel: " + nivel + "\n" +
-                "Vida: " + vidaActual + "/" + vidaMaxima + "\n" +
-                "Daño: " + danio + "\n" +
-                "Defensa: " + defensa + "\n" +
-                "Armadura: " + (armadura != null ? armadura.getNombre() : "Ninguna") + "\n" +
-                "Consumible: " + (consumible != null ? consumible.getNombre() : "Ninguno") + "\n" +
+                "Nombre: " + getNombre() + "\n" +
+                "Nivel: " + getNivel() + "\n" +
+                "Vida: " + getVidaActual() + "/" + getVidaMaxima() + "\n" +
+                "Daño: " + getDanio() + "\n" +
+                "Defensa: " + getDefensa() + "\n" +
+                "Armadura: " + (getArmadura() != null ? getArmadura().getNombre() : "Ninguna") + "\n" +
+                "Consumible: " + (getConsumible() != null ? getConsumible().getNombre() : "Ninguno") + "\n" +
                 "=========================================";
     }
 }
