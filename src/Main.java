@@ -1,55 +1,53 @@
 import items.Arma;
 import items.Armadura;
 import items.Consumible;
+import modelo.SistemaJuego;
 import personajes.*;
 import enemigos.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Personaje g = new Guerrero("Aragorn", 5, 100, 10, 10);
-        Personaje m = new Mago("Gandalf", 5, 100, 100);
+        SistemaJuego juego = new SistemaJuego("Mundo RPG");
+
+        Guerrero aragorn = new Guerrero("Aragorn", 5, 100, 10, 10);
+        Mago gandalf = new Mago("Gandalf", 5, 100, 100);
+        Dragon dragon = new Dragon(8);
+        Esqueleto esqueleto = new Esqueleto(8);
+
+        juego.registrarPersonaje(aragorn);
+        juego.registrarPersonaje(gandalf);
+        juego.registrarEnemigo(dragon);
+        juego.registrarEnemigo(esqueleto);
 
         Arma espada = new Arma("Espada", 1, 15, 100);
         Armadura cota = new Armadura("Cota de Malla", 1, 5, 100);
-        Consumible pocionG = new Consumible("Pocion", 1, 30, "Vida");
+        Consumible pocG = new Consumible("Pocion", 1, 30, "Vida");
+        Consumible pocM = new Consumible("Pocion", 3, 30, "Vida");
 
-        Consumible pocionM = new Consumible("Pocion", 3, 30, "Vida");
+        juego.darArma(aragorn, espada);
+        juego.darArmadura(aragorn, cota);
+        juego.darConsumible(aragorn, pocG);
+        juego.darConsumible(gandalf, pocM);
 
-        Dragon d = new Dragon(8);
-        Esqueleto e = new Esqueleto(8);
+        juego.equiparArma(aragorn, espada);
+        juego.equiparArmadura(aragorn, cota);
+        juego.equiparConsumible(aragorn, pocG);
+        juego.equiparConsumible(gandalf, pocM);
 
-        g.setArma(espada);
-        g.setArmadura(cota);
-        g.setConsumible(pocionG);
+        // mostrar inventario
+        juego.mostrarInventario(aragorn);
+        juego.mostrarInventario(gandalf);
 
-        m.setConsumible(pocionM);
+        juego.mostrarEstado();
 
-        System.out.println(g);
-        System.out.println(m);
+        juego.iniciarBatalla(aragorn, dragon);
+        juego.iniciarBatalla(gandalf, esqueleto);
 
-        System.out.println("\n==== PELEA ====");
+        juego.usarConsumible(aragorn);
+        juego.usarConsumible(gandalf);
 
-        g.atacar(d);
-        m.atacar(e);
-
-        System.out.println("\n--- Enemigos atacan ---");
-        d.atacar(g);
-        d.atacar(m);
-        e.atacar(g);
-        e.atacar(m);
-
-        System.out.println("\n--- Usar pociones ---");
-        g.getConsumible().usar();
-        m.getConsumible().usar();
-        m.getConsumible().usar();
-        m.getConsumible().usar();
-        m.getConsumible().usar();
-
-        System.out.println("\n==== ESTADO FINAL ====");
-        System.out.println("Aragorn vivo: " + g.estaVivo());
-        System.out.println("Gandalf vivo: " + m.estaVivo());
-        System.out.println(g.toString());
-        System.out.println(m.toString());
+        juego.mostrarEstado();
+        juego.getTotalBatallas();
     }
 }

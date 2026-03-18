@@ -27,11 +27,7 @@ public class Mago extends Personaje {
 
     @Override
     public void atacar(Enemigo e) {
-        if (mana < 10) {
-            System.out.println(nombre + " no tiene suficiente mana para atacar.");
-            return;
-        }
-        int danioMagico = 20 + (this.nivel * 2);
+        int danioMagico = 20 + (getNivel() * 2);
         mana -= 10;
         System.out.println(
                 nombre + " ataca a " + e.getNombre() + " con su magia infligiendo " + danioMagico + " puntos de daño.");
@@ -40,7 +36,7 @@ public class Mago extends Personaje {
 
     @Override
     public void bloquear() {
-        this.bloqueando = true;
+        setBloqueando(true);
         System.out.println(nombre + " bloquea el ataque.");
     }
 

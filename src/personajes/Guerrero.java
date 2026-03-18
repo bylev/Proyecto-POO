@@ -42,7 +42,7 @@ public class Guerrero extends Personaje {
 
     @Override
     public void bloquear() {
-        this.bloqueando = true;
+        setBloqueando(true);
         int defensaTotal = this.defensa + this.resistencia;
         System.out.println(nombre + " bloquea el ataque. Defensa total: " + defensaTotal);
     }

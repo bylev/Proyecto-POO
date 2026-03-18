@@ -17,10 +17,11 @@ public class Esqueleto extends Enemigo {
 
     @Override
     public String toString() {
-        return "Esqueleto: " + getNombre() +
-                "\nNivel: " + getNivel() +
-                "\nVida: " + getVida() +
-                "\nDaño: " + getDanio() +
-                "\nExperiencia Otorgada: " + getExperienciaOtorgada();
+        return "========= Esqueleto =========\n" +
+                "Nivel: " + getNivel() + "\n" +
+                "Vida: " + getVida() + "\n" +
+                "Daño: " + getDanio() + "\n" +
+                "Experiencia Otorgada: " + getExperienciaOtorgada() + "\n" +
+                "===============================";
     }
 }

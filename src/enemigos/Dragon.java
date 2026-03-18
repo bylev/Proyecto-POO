@@ -17,10 +17,11 @@ public class Dragon extends Enemigo {
 
     @Override
     public String toString() {
-        return "Dragón: " + getNombre() +
-                "\nNivel: " + getNivel() +
-                "\nVida: " + getVida() +
-                "\nDaño: " + getDanio() +
-                "\nExperiencia Otorgada: " + getExperienciaOtorgada();
+        return "========= Dragón =========\n" +
+                "Nivel: " + getNivel() + "\n" +
+                "Vida: " + getVida() + "\n" +
+                "Daño: " + getDanio() + "\n" +
+                "Experiencia Otorgada: " + getExperienciaOtorgada() + "\n" +
+                "===============================";
     }
 }

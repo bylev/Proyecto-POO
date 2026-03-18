@@ -5,6 +5,7 @@ import enemigos.Enemigo;
 import items.Arma;
 import items.Armadura;
 import items.Consumible;
+import modelo.Inventario;
 
 public abstract class Personaje implements Vida {
     protected String nombre;
@@ -17,6 +18,7 @@ public abstract class Personaje implements Vida {
     protected Armadura armadura;
     protected Consumible consumible;
     protected boolean bloqueando;
+    protected Inventario inventario;
 
     public Personaje(String nombre, int nivel, int vidaMaxima) {
         if (nombre == null || nombre.isEmpty())
@@ -36,6 +38,7 @@ public abstract class Personaje implements Vida {
         this.arma = null;
         this.armadura = null;
         this.bloqueando = false;
+        this.inventario = new Inventario();
     }
 
     public abstract void atacar(Enemigo e);
@@ -148,6 +151,10 @@ public abstract class Personaje implements Vida {
         this.consumible = c;
         c.setPersonaje(this);
         System.out.println(nombre + " equipa el consumible " + c.getNombre());
+    }
+
+    public Inventario getInventario() {
+        return inventario;
     }
 
     @Override
