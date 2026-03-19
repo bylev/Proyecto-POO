@@ -43,7 +43,6 @@ public class SistemaJuego {
     public void darArma(Personaje p, Arma a) {
         if (p == null || a == null)
             return;
-        p.setArma(a);
         p.getInventario().agregarArma(a);
         System.out.println("[" + nombre + "]" + a.getNombre() + " agregada al inventario de " + p.getNombre());
     }
@@ -51,7 +50,6 @@ public class SistemaJuego {
     public void darArmadura(Personaje p, Armadura a) {
         if (p == null || a == null)
             return;
-        p.setArmadura(a);
         p.getInventario().agregarArmadura(a);
         System.out.println("[" + nombre + "]" + a.getNombre() + " agregada al inventario de " + p.getNombre());
     }
@@ -59,7 +57,6 @@ public class SistemaJuego {
     public void darConsumible(Personaje p, Consumible c) {
         if (p == null || c == null)
             return;
-        p.setConsumible(c);
         p.getInventario().agregarConsumible(c);
         System.out.println("[" + nombre + "]" + c.getNombre() + " agregada al inventario de " + p.getNombre());
     }
