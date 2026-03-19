@@ -1,6 +1,7 @@
 package personajes;
 
 import interfaces.Vida;
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
 import enemigos.Enemigo;
 import items.Arma;
 import items.Armadura;
@@ -41,7 +42,7 @@ public abstract class Personaje implements Vida {
         this.inventario = new Inventario();
     }
 
-    public abstract void atacar(Enemigo e);
+    public abstract void atacar(Enemigo e) throws ManaInsuficienteException;
 
     public abstract void bloquear();
 

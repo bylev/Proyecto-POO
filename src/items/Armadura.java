@@ -1,5 +1,6 @@
 package items;
 
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import interfaces.Durable;
 import personajes.Personaje;
 
@@ -46,23 +47,23 @@ public class Armadura extends Item implements Durable {
     }
 
     @Override
-    public void usar() {
+    public void usar() throws ObjetoNoPosibleException {
         if (cantidad <= 0) {
             System.out.println("No cuentas con este item en tu inventario.");
             return;
         }
 
         if (estaRota()) {
-            System.out.println("El armadura " + nombre + " está rota y no puede usarse.");
+            throw new ObjetoNoPosibleException("El armadura " + nombre + " está rota y no esta disponible.");
         } else
             System.out.println("Armadura: " + nombre + " | Estado: "
                     + (estaRota() ? "ROTA" : durabilidadActual + "/" + durabilidadMaxima));
     }
 
     @Override
-    public void equiparEn(Personaje p) {
+    public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
         if (estaRota()) {
-            System.out.println("No puedes equipar " + nombre + " porque está rota.");
+            throw new ObjetoNoPosibleException("No puedes equipar " + nombre + " porque no es utilizable/disponible.");
         } else {
             p.setArmadura(this);
             System.out.println(p.getNombre() + " equipó la armadura " + nombre);

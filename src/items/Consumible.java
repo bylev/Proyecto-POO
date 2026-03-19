@@ -1,5 +1,6 @@
 package items;
 
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import personajes.Personaje;
 
 public class Consumible extends Item {
@@ -27,14 +28,13 @@ public class Consumible extends Item {
 
     /* Métodos */
     @Override
-    public void usar() {
+    public void usar() throws ObjetoNoPosibleException {
         if (p == null) {
             System.out.println("No hay personaje para usar el consumible.");
             return;
         }
         if (cantidad <= 0) {
-            System.out.println("No quedan consumibles.");
-            return;
+            throw new ObjetoNoPosibleException("El armadura " + nombre + " está rota y no esta disponible.");
         }
         System.out.println("Consumible: " + nombre + " (+" + vidaRestaurada + " de vida)");
         equiparEn(p);
@@ -42,9 +42,11 @@ public class Consumible extends Item {
     }
 
     @Override
-    public void equiparEn(Personaje p) {
+    public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
         if (p.getVidaActual() == p.getVidaMaxima()) {
             System.out.println("El personaje ya tiene la vida al máximo.");
+            throw new ObjetoNoPosibleException(
+                    "El personaje ya tiene la vida al máximo y no es disponible aumentar la vida.");
             return;
         }
         p.setVidaActual(p.getVidaActual() + vidaRestaurada);

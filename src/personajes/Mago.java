@@ -1,5 +1,6 @@
 package personajes;
 
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
 import enemigos.Enemigo;
 
 public class Mago extends Personaje {
@@ -26,7 +27,11 @@ public class Mago extends Personaje {
     /* Métodos */
 
     @Override
-    public void atacar(Enemigo e) {
+    public void atacar(Enemigo e) throws ManaInsuficienteException {
+
+        if (this.mana < 10) {
+            throw new ManaInsuficienteException("No tienes sufciente mana para atacar y tu mana es " + mana);
+        }
         int danioMagico = 20 + (getNivel() * 2);
         mana -= 10;
         System.out.println(

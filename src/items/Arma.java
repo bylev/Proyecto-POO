@@ -1,5 +1,7 @@
 package items;
 
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import interfaces.Durable;
 import personajes.Personaje;
 
@@ -47,23 +49,23 @@ public class Arma extends Item implements Durable {
     }
 
     @Override
-    public void usar() {
+    public void usar() throws ObjetoNoPosibleException {
         if (cantidad <= 0) {
             System.out.println("No cuentas con este item en tu inventario.");
             return;
         }
 
         if (estaRota()) {
-            System.out.println("El arma " + nombre + " está rota y no puede usarse.");
+            throw new ObjetoNoPosibleException("El arma " + nombre + "esta rota y no esta disponible");
         } else
             System.out.println("Arma: " + nombre + " | Estado: "
                     + (estaRota() ? "ROTA" : durabilidadActual + "/" + durabilidadMaxima));
     }
 
     @Override
-    public void equiparEn(Personaje p) {
+    public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
         if (estaRota()) {
-            System.out.println("No puedes equipar " + nombre + " porque está rota.");
+            throw new ObjetoNoPosibleException("No puedes equipar " + nombre + " porque no es utilizable/disponible.");
         } else {
             p.setArma(this);
             System.out.println("Arma equipada y lista para usar.");

@@ -1,5 +1,6 @@
 package personajes;
 
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
 import enemigos.Enemigo;
 
 public class Guerrero extends Personaje {
@@ -26,7 +27,7 @@ public class Guerrero extends Personaje {
     }
 
     @Override
-    public void atacar(Enemigo e) {
+    public void atacar(Enemigo e) throws ManaInsuficienteException {
         if (getArma() != null && !getArma().estaRota()) {
             int danioFinal = fuerza + getArma().getDanio();
             System.out.println(nombre + " ataca a " + e.getNombre() + " con su arma " + getArma().getNombre()

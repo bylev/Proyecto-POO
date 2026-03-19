@@ -1,5 +1,6 @@
 package items;
 
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import personajes.Personaje;
 
 public abstract class Item {
@@ -15,7 +16,7 @@ public abstract class Item {
 
     public abstract void usar();
 
-    public abstract void equiparEn(Personaje p);
+    public abstract void equiparEn(Personaje p) throws ObjetoNoPosibleException;
 
     /* Getters */
     public String getNombre() {

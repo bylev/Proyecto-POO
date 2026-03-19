@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import enemigos.Enemigo;
 import items.*;
 import personajes.Personaje;
+import ExcepcionesPersonalizadas.*;
 
 public class SistemaJuego {
     private String nombre;
@@ -78,7 +79,7 @@ public class SistemaJuego {
     }
 
     // Iniciar batalla
-    public void iniciarBatalla(Personaje p, Enemigo e) {
+    public void iniciarBatalla(Personaje p, Enemigo e) throws ManaInsuficienteException {
         if (p == null || e == null) {
             System.out.println("No hay personaje o enemigo para iniciar la batalla.");
             return;
@@ -107,7 +108,7 @@ public class SistemaJuego {
         System.out.println("\n========================================================");
     }
 
-    public void usarConsumible(Personaje p) {
+    public void usarConsumible(Personaje p) throws ObjetoNoPosibleException {
         if (p == null)
             return;
         if (!p.estaVivo()) {
