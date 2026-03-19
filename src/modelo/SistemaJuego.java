@@ -7,17 +7,6 @@ import enemigos.Enemigo;
 import items.*;
 import personajes.Personaje;
 
-//Como es la relacion de esta clase para mi uml?
-//Es una relacion de composicion porque el sistema no puede existir sin los personajes y enemigos.
-//la multiplicidad?
-//1..*
-// 1 sistema tiene 1..* personajes, 1..* enemigos
-//Donde va el rombo relleno?
-//Va en el lado de la clase que tiene la responsabilidad de mantener la coleccion de objetos.
-//En este caso, el sistema tiene la responsabilidad de mantener la coleccion de objetos.
-//Por lo tanto, el rombo relleno va en el lado del sistema.
-// sistema de 0..* o de 1..*?
-
 public class SistemaJuego {
     private String nombre;
     private static int totalBatallas = 0;
