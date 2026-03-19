@@ -25,10 +25,8 @@ public class Mago extends Personaje {
     }
 
     /* Métodos */
-
     @Override
     public void atacar(Enemigo e) throws ManaInsuficienteException {
-
         if (this.mana < 10) {
             throw new ManaInsuficienteException("No tienes sufciente mana para atacar y tu mana es " + mana);
         }

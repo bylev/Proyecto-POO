@@ -26,8 +26,7 @@ public class Guerrero extends Personaje {
         return resistencia;
     }
 
-    @Override
-    public void atacar(Enemigo e) throws ManaInsuficienteException {
+    public void atacar(Enemigo e) {
         if (getArma() != null && !getArma().estaRota()) {
             int danioFinal = fuerza + getArma().getDanio();
             System.out.println(nombre + " ataca a " + e.getNombre() + " con su arma " + getArma().getNombre()
