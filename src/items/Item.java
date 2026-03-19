@@ -1,10 +1,11 @@
 package items;
 
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import personajes.Personaje;
 
 public abstract class Item {
-    private String nombre;
-    private int cantidad;
+    protected String nombre;
+    protected int cantidad;
 
     public Item(String nombre, int cantidad) {
         if (nombre == null || nombre.isEmpty())
@@ -13,26 +14,16 @@ public abstract class Item {
         this.cantidad = (cantidad < 0) ? 0 : cantidad;
     }
 
-    public abstract void usar();
+    public abstract void usar() throws ObjetoNoPosibleException;
 
-    public abstract void equiparEn(Personaje p);
+    public abstract void equiparEn(Personaje p) throws ObjetoNoPosibleException;
 
-    /* Getters */
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    /* Setters */
-    public void setCantidad(int cantidad) {
-        this.cantidad = (cantidad < 0) ? 0 : cantidad;
-    }
+    public String getNombre() { return nombre; }
+    public int getCantidad() { return cantidad; }
+    public void setCantidad(int cantidad) { this.cantidad = (cantidad < 0) ? 0 : cantidad; }
 
     @Override
     public String toString() {
-        return "Item: " + nombre + "\nCantidad: " + cantidad;
+        return "Item: " + nombre + " | Cantidad: " + cantidad;
     }
 }
