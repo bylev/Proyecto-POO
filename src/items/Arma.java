@@ -1,5 +1,6 @@
 package items;
 
+import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
 import interfaces.Durable;
 import personajes.Personaje;
 
@@ -10,69 +11,34 @@ public class Arma extends Item implements Durable {
 
     public Arma(String nombre, int cantidad, int danio, int durabilidadMaxima) {
         super(nombre, cantidad);
-        if (danio <= 0)
-            throw new IllegalArgumentException("El daño no puede ser 0 ni menor.");
-        if (durabilidadMaxima <= 0)
-            throw new IllegalArgumentException("La durabilidad máxima debe ser mayor a 0.");
+        if (danio <= 0) throw new IllegalArgumentException("El daño debe ser mayor a 0.");
         this.danio = danio;
-        this.durabilidadActual = durabilidadMaxima;
         this.durabilidadMaxima = durabilidadMaxima;
+        this.durabilidadActual = durabilidadMaxima;
     }
 
-    /* Getters */
-    public int getDanio() {
-        return estaRota() ? 0 : danio;
+    @Override
+    public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
+        if (estaRota()) {
+            throw new ObjetoNoPosibleException(this.durabilidadActual);
+        } else {
+            // Llama al método de Personaje que ahora maneja la lista
+            p.setArma(this); 
+        }
     }
 
-    public int getDurabilidadActual() {
-        return durabilidadActual;
+    @Override
+    public void usar() throws ObjetoNoPosibleException {
+        if (estaRota()) throw new ObjetoNoPosibleException(this.durabilidadActual);
+        System.out.println("Usando arma: " + nombre);
     }
-
-    public int getDurabilidadMaxima() {
-        return durabilidadMaxima;
-    }
-
-    /* Métodos */
 
     @Override
     public void reducirDurabilidad(int cantidad) {
-        durabilidadActual -= cantidad;
-        if (durabilidadActual < 0)
-            durabilidadActual = 0;
+        durabilidadActual = Math.max(0, durabilidadActual - cantidad);
     }
 
     @Override
-    public boolean estaRota() {
-        return durabilidadActual == 0;
-    }
-
-    @Override
-    public void usar() {
-        if (getCantidad() <= 0) {
-            System.out.println("No cuentas con este item en tu inventario.");
-            return;
-        }
-
-        if (estaRota()) {
-            System.out.println("El arma " + getNombre() + " está rota y no puede usarse.");
-        } else
-            System.out.println("Arma: " + getNombre() + " | Estado: "
-                    + (estaRota() ? "ROTA" : durabilidadActual + "/" + durabilidadMaxima));
-    }
-
-    @Override
-    public void equiparEn(Personaje p) {
-        if (estaRota()) {
-            System.out.println("No puedes equipar " + getNombre() + " porque está rota.");
-        } else {
-            p.setArma(this);
-            System.out.println("Arma equipada y lista para usar.");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Arma: " + getNombre() + " | Estado: "
-                + (estaRota() ? "ROTA" : getDurabilidadActual() + "/" + getDurabilidadMaxima());
-    }
+    public boolean estaRota() { return durabilidadActual <= 0; }
+    public int getDanio() { return danio; }
 }
