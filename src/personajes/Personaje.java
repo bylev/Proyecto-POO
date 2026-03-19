@@ -1,29 +1,30 @@
 package personajes;
 
 import interfaces.Vida;
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
 import enemigos.Enemigo;
 import items.Arma;
 import items.Armadura;
 import items.Consumible;
-import modelo.Inventario;
+import items.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Personaje implements Vida {
-    private String nombre;
-    private int nivel;
-    private int vidaMaxima;
-    private int vidaActual;
-    private int danio;
-    private int defensa;
-    private Arma arma;
-    private Armadura armadura;
-    private Consumible consumible;
-    private boolean bloqueando;
-    private Inventario inventario;
+    protected String nombre;
+    protected int nivel;
+    protected int vidaMaxima;
+    protected int vidaActual;
+    protected int danio;
+    protected int defensa;
+    protected boolean bloqueando;
+    
+    // aqui se reemplazo campos sueltos por lista
+    protected List<Item> equipamiento;
 
     public Personaje(String nombre, int nivel, int vidaMaxima) {
         if (nombre == null || nombre.isEmpty())
-            throw new IllegalArgumentException(
-                    "El personaje debe tener un nombre válido. No puede ser null ni estar vacío.");
+            throw new IllegalArgumentException("El personaje debe tener un nombre válido.");
         if (nivel <= 0)
             throw new IllegalArgumentException("El nivel debe ser mayor a 0.");
         if (vidaMaxima <= 0)
@@ -35,127 +36,90 @@ public abstract class Personaje implements Vida {
         this.vidaActual = vidaMaxima;
         this.defensa = nivel;
         this.danio = 10 + (nivel * 2);
-        this.arma = null;
-        this.armadura = null;
+        this.equipamiento = new ArrayList<>();
         this.bloqueando = false;
-        this.inventario = new Inventario();
     }
 
-    public abstract void atacar(Enemigo e);
-
-    public abstract void bloquear();
-
-    public void setBloqueando(boolean bloqueando) {
-        this.bloqueando = bloqueando;
-    }
-
-    public int calcularDefensaTotal() {
-        int defensaTotal = defensa;
-        if (armadura != null && !armadura.estaRota()) {
-            defensaTotal += armadura.getDefensa();
-            armadura.reducirDurabilidad(1);
-
-            System.out
-                    .println(nombre + " usa su armadura " + armadura.getNombre() + " . Defensa total: " + defensaTotal);
-        }
-        if (bloqueando) {
-            defensaTotal += defensa * 2;
-            bloqueando = false;
-            System.out.println(nombre + " bloqueó el ataque. Defensa total: " + defensaTotal);
-        }
-        return defensaTotal;
-    }
-
-    @Override
-    public void recibirDanio(int cantidad) {
-        if (!estaVivo())
-            return;
-        int danioRecibido = Math.max(0, cantidad - calcularDefensaTotal());
-        vidaActual -= danioRecibido;
-        if (vidaActual < 0)
-            vidaActual = 0;
-        System.out.println(nombre + " recibe " + danioRecibido + " puntos de daño. Vida actual: " + vidaActual);
-    }
-
-    @Override
-    public boolean estaVivo() {
-        return vidaActual > 0;
-    }
-
-    /* GETTERS */
-    public int getDefensa() {
-        return defensa;
-    }
-
-    public int getDanio() {
-        return danio;
-    }
-
-    public int getVidaActual() {
-        return vidaActual;
-    }
-
-    public int getVidaMaxima() {
-        return vidaMaxima;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
+    
 
     public Arma getArma() {
-        return arma;
+        for (Item i : equipamiento) {
+            if (i instanceof Arma) return (Arma) i;
+        }
+        return null;
     }
 
     public Armadura getArmadura() {
-        return armadura;
+        for (Item i : equipamiento) {
+            if (i instanceof Armadura) return (Armadura) i;
+        }
+        return null;
     }
 
     public Consumible getConsumible() {
-        return consumible;
-    }
-
-    public Inventario getInventario() {
-        return inventario;
-    }
-
-    /* SETTERS */
-
-    public void setVidaActual(int vidaActual) {
-        this.vidaActual = vidaActual;
-    }
-
-    public void setArmadura(Armadura a) {
-        this.armadura = a;
+        for (Item i : equipamiento) {
+            if (i instanceof Consumible) return (Consumible) i;
+        }
+        return null;
     }
 
     public void setArma(Arma a) {
-        this.arma = a;
-    }
-
-    public void setConsumible(Consumible c) {
-        this.consumible = c;
-        if (c != null) {
-            c.setPersonaje(this);
+        equipamiento.removeIf(i -> i instanceof Arma);
+        if (a != null) {
+            equipamiento.add(a);
+            System.out.println(nombre + " equipa el arma " + a.getNombre());
         }
     }
 
-    @Override
-    public String toString() {
-        return "=============== Personaje ===============\n" +
-                "Nombre: " + nombre + "\n" +
-                "Nivel: " + nivel + "\n" +
-                "Vida: " + vidaActual + "/" + vidaMaxima + "\n" +
-                "Daño: " + danio + "\n" +
-                "Defensa: " + defensa + "\n" +
-                "Arma: " + (arma != null ? arma.getNombre() : "Ninguna") + "\n" +
-                "Armadura: " + (armadura != null ? armadura.getNombre() : "Ninguna") + "\n" +
-                "Consumible: " + (consumible != null ? consumible.getNombre() : "Ninguno") + "\n" +
-                "=========================================";
+    public void setArmadura(Armadura a) {
+        equipamiento.removeIf(i -> i instanceof Armadura);
+        if (a != null) {
+            equipamiento.add(a);
+            System.out.println(nombre + " equipa la armadura " + a.getNombre());
+        }
     }
 
+    public void setConsumible(Consumible c) {
+        equipamiento.removeIf(i -> i instanceof Consumible);
+        if (c != null) {
+            equipamiento.add(c);
+            c.setPersonaje(this);
+            System.out.println(nombre + " equipa el consumible " + c.getNombre());
+        }
+    }
+
+    
+
+    public void setVidaActual(int vidaActual) {
+        if (vidaActual < 0) this.vidaActual = 0;
+        else if (vidaActual > vidaMaxima) this.vidaActual = vidaMaxima;
+        else this.vidaActual = vidaActual;
+    }
+
+    public void setNivel(int nivel) {
+        if (nivel <= 0) throw new IllegalArgumentException("El nivel debe ser mayor a 0.");
+        this.nivel = nivel;
+    }
+
+    public abstract void atacar(Enemigo e) throws ManaInsuficienteException;
+    public abstract void bloquear();
+
+    @Override
+    public boolean estaVivo() { return vidaActual > 0; }
+
+    @Override
+    public void recibirDanio(int cantidad) {
+        int danioRecibido = bloqueando ? Math.max(0, cantidad - (defensa * 2)) : Math.max(0, cantidad - defensa);
+        setVidaActual(vidaActual - danioRecibido);
+        bloqueando = false;
+        System.out.println(nombre + " recibe " + danioRecibido + " de daño. Vida: " + vidaActual);
+    }
+
+    
+    public String getNombre() { return nombre; }
+    public int getNivel() { return nivel; }
+    public int getVidaActual() { return vidaActual; }
+    public int getVidaMaxima() { return vidaMaxima; }
+    public int getDanio() { return danio; }
+    public void setBloqueando(boolean b) { this.bloqueando = b; }
 }
