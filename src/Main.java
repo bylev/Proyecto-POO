@@ -22,18 +22,18 @@ public class Main {
 
         Arma espada = new Arma("Espada", 1, 15, 100);
         Armadura cota = new Armadura("Cota de Malla", 1, 5, 100);
-        Consumible pocG = new Consumible("Pocion", 1, 30, "Vida");
-        Consumible pocM = new Consumible("Pocion", 3, 30, "Vida");
+        Consumible pocG = new Consumible("Pocion", 1, 30);
+        Consumible pocM = new Consumible("Pocion", 3, 30);
 
         juego.darArma(aragorn, espada);
         juego.darArmadura(aragorn, cota);
         juego.darConsumible(aragorn, pocG);
         juego.darConsumible(gandalf, pocM);
 
-        juego.equiparArma(aragorn, espada);
-        juego.equiparArmadura(aragorn, cota);
-        juego.equiparConsumible(aragorn, pocG);
-        juego.equiparConsumible(gandalf, pocM);
+        juego.equiparItem(aragorn, espada);
+        juego.equiparItem(aragorn, cota);
+        juego.equiparItem(aragorn, pocG);
+        juego.equiparItem(gandalf, pocM);
 
         // mostrar inventario
         juego.mostrarInventario(aragorn);

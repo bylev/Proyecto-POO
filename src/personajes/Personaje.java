@@ -130,31 +130,18 @@ public abstract class Personaje implements Vida {
     }
 
     public void setArmadura(Armadura a) {
-        if (a == null) {
-            System.out.println("No hay armadura para equipar.");
-            return;
-        }
         this.armadura = a;
-        System.out.println(nombre + " equipa la armadura " + a.getNombre());
     }
 
     public void setArma(Arma a) {
-        if (a == null) {
-            System.out.println("No hay arma para equipar.");
-            return;
-        }
         this.arma = a;
-        System.out.println(nombre + " equipa el arma " + a.getNombre());
     }
 
     public void setConsumible(Consumible c) {
-        if (c == null) {
-            System.out.println("No hay consumible para equipar.");
-            return;
-        }
         this.consumible = c;
-        c.setPersonaje(this);
-        System.out.println(nombre + " equipa el consumible " + c.getNombre());
+        if (c != null) {
+            c.setPersonaje(this);
+        }
     }
 
     @Override

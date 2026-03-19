@@ -6,7 +6,7 @@ public class Consumible extends Item {
     private int vidaRestaurada;
     private Personaje p;
 
-    public Consumible(String nombre, int cantidad, int vidaRestaurada, String tipo) {
+    public Consumible(String nombre, int cantidad, int vidaRestaurada) {
         super(nombre, cantidad);
         if (vidaRestaurada <= 0)
             throw new IllegalArgumentException("El consumible debe restaurar vida o maná.");

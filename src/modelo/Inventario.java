@@ -1,14 +1,15 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 import items.Arma;
 import items.Armadura;
 import items.Consumible;
 
 public class Inventario {
-    private ArrayList<Arma> armas = new ArrayList<>();
-    private ArrayList<Armadura> armaduras = new ArrayList<>();
-    private ArrayList<Consumible> consumibles = new ArrayList<>();
+    private List<Arma> armas = new ArrayList<>();
+    private List<Armadura> armaduras = new ArrayList<>();
+    private List<Consumible> consumibles = new ArrayList<>();
 
     public void agregarArma(Arma a) {
         if (a == null)
@@ -32,15 +33,16 @@ public class Inventario {
     }
 
     // Getters
-    public ArrayList<Arma> getArmas() {
+
+    public List<Arma> getArmas() {
         return armas;
     }
 
-    public ArrayList<Armadura> getArmaduras() {
+    public List<Armadura> getArmaduras() {
         return armaduras;
     }
 
-    public ArrayList<Consumible> getConsumibles() {
+    public List<Consumible> getConsumibles() {
         return consumibles;
     }
 

@@ -1,18 +1,30 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import enemigos.Enemigo;
 import items.*;
 import personajes.Personaje;
+
+//Como es la relacion de esta clase para mi uml?
+//Es una relacion de composicion porque el sistema no puede existir sin los personajes y enemigos.
+//la multiplicidad?
+//1..*
+// 1 sistema tiene 1..* personajes, 1..* enemigos
+//Donde va el rombo relleno?
+//Va en el lado de la clase que tiene la responsabilidad de mantener la coleccion de objetos.
+//En este caso, el sistema tiene la responsabilidad de mantener la coleccion de objetos.
+//Por lo tanto, el rombo relleno va en el lado del sistema.
+// sistema de 0..* o de 1..*?
 
 public class SistemaJuego {
     private String nombre;
     private static int totalBatallas = 0;
 
     // Array de personajes
-    private ArrayList<Personaje> personajes = new ArrayList<>();
-    private ArrayList<Enemigo> enemigos = new ArrayList<>();
+    private List<Personaje> personajes = new ArrayList<>();
+    private List<Enemigo> enemigos = new ArrayList<>();
 
     // Constructor
     public SistemaJuego(String nombre) {
@@ -59,22 +71,10 @@ public class SistemaJuego {
     }
 
     /* Equipar */
-    public void equiparArma(Personaje p, Arma a) {
-        if (p == null || a == null)
+    public void equiparItem(Personaje p, Item i) {
+        if (p == null || i == null)
             return;
-        p.setArma(a);
-    }
-
-    public void equiparArmadura(Personaje p, Armadura a) {
-        if (p == null || a == null)
-            return;
-        p.setArmadura(a);
-    }
-
-    public void equiparConsumible(Personaje p, Consumible c) {
-        if (p == null || c == null)
-            return;
-        p.setConsumible(c);
+        i.equiparEn(p);
     }
 
     // Iniciar batalla
@@ -136,11 +136,11 @@ public class SistemaJuego {
     }
 
     // Getters
-    public ArrayList<Personaje> getPersonajes() {
+    public List<Personaje> getPersonajes() {
         return personajes;
     }
 
-    public ArrayList<Enemigo> getEnemigos() {
+    public List<Enemigo> getEnemigos() {
         return enemigos;
     }
 
