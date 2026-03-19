@@ -32,13 +32,13 @@ public class Consumible extends Item {
             System.out.println("No hay personaje para usar el consumible.");
             return;
         }
-        if (cantidad <= 0) {
+        if (getCantidad() <= 0) {
             System.out.println("No quedan consumibles.");
             return;
         }
-        System.out.println("Consumible: " + nombre + " (+" + vidaRestaurada + " de vida)");
+        System.out.println("Consumible: " + getNombre() + " (+" + vidaRestaurada + " de vida)");
         equiparEn(p);
-        cantidad--;
+        setCantidad(getCantidad() - 1);
     }
 
     @Override
@@ -50,12 +50,12 @@ public class Consumible extends Item {
         p.setVidaActual(p.getVidaActual() + vidaRestaurada);
         if (p.getVidaActual() > p.getVidaMaxima())
             p.setVidaActual(p.getVidaMaxima());
-        System.out.println(nombre + " restaura " + vidaRestaurada + " puntos de vida.");
+        System.out.println(getNombre() + " restaura " + vidaRestaurada + " puntos de vida.");
     }
 
     @Override
     public String toString() {
         return "Consumible: " + getNombre() + " | Estado: "
-                + (cantidad <= 0 ? "ROTA" : getCantidad() + "/" + getCantidad());
+                + (getCantidad() <= 0 ? "ROTA" : getCantidad() + "/" + getCantidad());
     }
 }

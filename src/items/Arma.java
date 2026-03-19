@@ -48,22 +48,22 @@ public class Arma extends Item implements Durable {
 
     @Override
     public void usar() {
-        if (cantidad <= 0) {
+        if (getCantidad() <= 0) {
             System.out.println("No cuentas con este item en tu inventario.");
             return;
         }
 
         if (estaRota()) {
-            System.out.println("El arma " + nombre + " está rota y no puede usarse.");
+            System.out.println("El arma " + getNombre() + " está rota y no puede usarse.");
         } else
-            System.out.println("Arma: " + nombre + " | Estado: "
+            System.out.println("Arma: " + getNombre() + " | Estado: "
                     + (estaRota() ? "ROTA" : durabilidadActual + "/" + durabilidadMaxima));
     }
 
     @Override
     public void equiparEn(Personaje p) {
         if (estaRota()) {
-            System.out.println("No puedes equipar " + nombre + " porque está rota.");
+            System.out.println("No puedes equipar " + getNombre() + " porque está rota.");
         } else {
             p.setArma(this);
             System.out.println("Arma equipada y lista para usar.");

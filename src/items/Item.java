@@ -3,8 +3,8 @@ package items;
 import personajes.Personaje;
 
 public abstract class Item {
-    protected String nombre;
-    protected int cantidad;
+    private String nombre;
+    private int cantidad;
 
     public Item(String nombre, int cantidad) {
         if (nombre == null || nombre.isEmpty())

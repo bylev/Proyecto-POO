@@ -47,25 +47,25 @@ public class Armadura extends Item implements Durable {
 
     @Override
     public void usar() {
-        if (cantidad <= 0) {
+        if (getCantidad() <= 0) {
             System.out.println("No cuentas con este item en tu inventario.");
             return;
         }
 
         if (estaRota()) {
-            System.out.println("El armadura " + nombre + " está rota y no puede usarse.");
+            System.out.println("El armadura " + getNombre() + " está rota y no puede usarse.");
         } else
-            System.out.println("Armadura: " + nombre + " | Estado: "
+            System.out.println("Armadura: " + getNombre() + " | Estado: "
                     + (estaRota() ? "ROTA" : durabilidadActual + "/" + durabilidadMaxima));
     }
 
     @Override
     public void equiparEn(Personaje p) {
         if (estaRota()) {
-            System.out.println("No puedes equipar " + nombre + " porque está rota.");
+            System.out.println("No puedes equipar " + getNombre() + " porque está rota.");
         } else {
             p.setArmadura(this);
-            System.out.println(p.getNombre() + " equipó la armadura " + nombre);
+            System.out.println(p.getNombre() + " equipó la armadura " + getNombre());
         }
     }
 
