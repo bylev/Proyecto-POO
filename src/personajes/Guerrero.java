@@ -1,6 +1,8 @@
 package personajes;
 
+import ExcepcionesPersonalizadas.ManaInsuficienteException;
 import enemigos.Enemigo;
+import items.Arma;
 
 public class Guerrero extends Personaje {
     private int fuerza;
@@ -8,35 +10,22 @@ public class Guerrero extends Personaje {
 
     public Guerrero(String nombre, int nivel, int vidaMaxima, int fuerza, int resistencia) {
         super(nombre, nivel, vidaMaxima);
-        if (fuerza <= 0)
-            throw new IllegalArgumentException("La fuerza debe ser mayor a 0.");
-        if (resistencia <= 0)
-            throw new IllegalArgumentException("La resistencia debe ser mayor a 0.");
+        if (fuerza <= 0) throw new IllegalArgumentException("La fuerza debe ser mayor a 0.");
+        if (resistencia <= 0) throw new IllegalArgumentException("La resistencia debe ser mayor a 0.");
         this.fuerza = fuerza;
         this.resistencia = resistencia;
     }
 
-    /* Getters */
-    public int getFuerza() {
-        return fuerza;
-    }
-
-    public int getResistencia() {
-        return resistencia;
-    }
-
     @Override
-    public void atacar(Enemigo e) {
-        if (getArma() != null && !getArma().estaRota()) {
-            int danioFinal = fuerza + getArma().getDanio();
-            System.out.println(getNombre() + " ataca a " + e.getNombre() + " con su arma " + getArma().getNombre()
-                    + " infligiendo " + danioFinal + " puntos de daño.");
+    public void atacar(Enemigo e) throws ManaInsuficienteException {
+        Arma armaEquipada = getArma(); 
+        if (armaEquipada != null && !armaEquipada.estaRota()) {
+            int danioFinal = fuerza + armaEquipada.getDanio();
+            System.out.println(nombre + " ataca a " + e.getNombre() + " con " + armaEquipada.getNombre() + " infligiendo " + danioFinal);
             e.recibirDanio(danioFinal);
-            getArma().reducirDurabilidad(1);
+            armaEquipada.reducirDurabilidad(1);
         } else {
-            System.out.println(
-                    getNombre() + " ataca a " + e.getNombre() + " con sus manos infligiendo " + fuerza
-                            + " puntos de daño.");
+            System.out.println(nombre + " ataca con sus manos infligiendo " + fuerza);
             e.recibirDanio(fuerza);
         }
     }
@@ -44,21 +33,16 @@ public class Guerrero extends Personaje {
     @Override
     public void bloquear() {
         setBloqueando(true);
-        int defensaTotal = getDefensa() + this.resistencia;
-        System.out.println(getNombre() + " bloquea el ataque. Defensa total: " + defensaTotal);
+        System.out.println(nombre + " se prepara para resistir el golpe.");
     }
 
     @Override
     public String toString() {
+        Arma a = getArma();
         return "=============== Guerrero ===============\n" +
-                "Nombre: " + getNombre() + "\n" +
-                "Nivel: " + getNivel() + "\n" +
-                "Vida: " + getVidaActual() + "/" + getVidaMaxima() + "\n" +
-                "Daño: " + getDanio() + "\n" +
-                "Defensa: " + getDefensa() + "\n" +
-                "Arma: " + (getArma() != null ? getArma().getNombre() : "Ninguna") + "\n" +
-                "Armadura: " + (getArmadura() != null ? getArmadura().getNombre() : "Ninguna") + "\n" +
-                "Consumible: " + (getConsumible() != null ? getConsumible().getNombre() : "Ninguno") + "\n" +
-                "=========================================";
+                "Nombre: " + nombre + "\n" +
+                "Vida: " + vidaActual + "/" + vidaMaxima + "\n" +
+                "Arma: " + (a != null ? a.getNombre() : "Ninguna") + "\n" +
+                "========================================";
     }
 }
