@@ -119,7 +119,11 @@ public abstract class Personaje implements Vida {
         return consumible;
     }
 
-    /* SETETRS */
+    public Inventario getInventario() {
+        return inventario;
+    }
+
+    /* SETTERS */
 
     public void setVidaActual(int vidaActual) {
         this.vidaActual = vidaActual;
@@ -151,10 +155,6 @@ public abstract class Personaje implements Vida {
         this.consumible = c;
         c.setPersonaje(this);
         System.out.println(nombre + " equipa el consumible " + c.getNombre());
-    }
-
-    public Inventario getInventario() {
-        return inventario;
     }
 
     @Override
