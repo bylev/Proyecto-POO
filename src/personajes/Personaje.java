@@ -9,7 +9,8 @@ import items.Consumible;
 import items.Item;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Inventario;
+
+import Sistema.Inventario;
 
 public abstract class Personaje implements Vida {
     private String nombre;

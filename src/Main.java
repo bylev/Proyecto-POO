@@ -1,7 +1,7 @@
 import items.Arma;
 import items.Armadura;
 import items.Consumible;
-import modelo.SistemaJuego;
+import Sistema.SistemaJuego;
 import excepciones.*;
 import personajes.*;
 import enemigos.*;
