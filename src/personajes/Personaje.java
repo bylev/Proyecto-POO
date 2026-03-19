@@ -8,17 +8,17 @@ import items.Consumible;
 import modelo.Inventario;
 
 public abstract class Personaje implements Vida {
-    protected String nombre;
-    protected int nivel;
-    protected int vidaMaxima;
-    protected int vidaActual;
-    protected int danio;
-    protected int defensa;
-    protected Arma arma;
-    protected Armadura armadura;
-    protected Consumible consumible;
-    protected boolean bloqueando;
-    protected Inventario inventario;
+    private String nombre;
+    private int nivel;
+    private int vidaMaxima;
+    private int vidaActual;
+    private int danio;
+    private int defensa;
+    private Arma arma;
+    private Armadura armadura;
+    private Consumible consumible;
+    private boolean bloqueando;
+    private Inventario inventario;
 
     public Personaje(String nombre, int nivel, int vidaMaxima) {
         if (nombre == null || nombre.isEmpty())

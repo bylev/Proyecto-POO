@@ -30,14 +30,15 @@ public class Mago extends Personaje {
         int danioMagico = 20 + (getNivel() * 2);
         mana -= 10;
         System.out.println(
-                nombre + " ataca a " + e.getNombre() + " con su magia infligiendo " + danioMagico + " puntos de daño.");
+                getNombre() + " ataca a " + e.getNombre() + " con su magia infligiendo " + danioMagico
+                        + " puntos de daño.");
         e.recibirDanio(danioMagico);
     }
 
     @Override
     public void bloquear() {
         setBloqueando(true);
-        System.out.println(nombre + " bloquea el ataque.");
+        System.out.println(getNombre() + " bloquea el ataque.");
     }
 
     @Override
