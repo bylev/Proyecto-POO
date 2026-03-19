@@ -1,7 +1,7 @@
 package personajes;
 
 import interfaces.Vida;
-import ExcepcionesPersonalizadas.ManaInsuficienteException;
+import excepciones.ManaInsuficienteException;
 import enemigos.Enemigo;
 import items.Arma;
 import items.Armadura;
@@ -9,18 +9,19 @@ import items.Consumible;
 import items.Item;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Inventario;
 
 public abstract class Personaje implements Vida {
-    protected String nombre;
-    protected int nivel;
-    protected int vidaMaxima;
-    protected int vidaActual;
-    protected int danio;
-    protected int defensa;
-    protected boolean bloqueando;
-    
-    // aqui se reemplazo campos sueltos por lista
-    protected List<Item> equipamiento;
+    private String nombre;
+    private int nivel;
+    private int vidaMaxima;
+    private int vidaActual;
+    private int danio;
+    private int defensa;
+    private boolean bloqueando;
+    private Inventario inventario;
+
+    private List<Item> equipamiento;
 
     public Personaje(String nombre, int nivel, int vidaMaxima) {
         if (nombre == null || nombre.isEmpty())
@@ -37,28 +38,34 @@ public abstract class Personaje implements Vida {
         this.defensa = nivel;
         this.danio = 10 + (nivel * 2);
         this.equipamiento = new ArrayList<>();
+        this.inventario = new Inventario();
         this.bloqueando = false;
     }
 
-    
-
     public Arma getArma() {
         for (Item i : equipamiento) {
-            if (i instanceof Arma) return (Arma) i;
+            if (i instanceof Arma)
+                return (Arma) i;
         }
         return null;
     }
 
+    public Inventario getInventario() {
+        return inventario;
+    }
+
     public Armadura getArmadura() {
         for (Item i : equipamiento) {
-            if (i instanceof Armadura) return (Armadura) i;
+            if (i instanceof Armadura)
+                return (Armadura) i;
         }
         return null;
     }
 
     public Consumible getConsumible() {
         for (Item i : equipamiento) {
-            if (i instanceof Consumible) return (Consumible) i;
+            if (i instanceof Consumible)
+                return (Consumible) i;
         }
         return null;
     }
@@ -88,24 +95,29 @@ public abstract class Personaje implements Vida {
         }
     }
 
-    
-
     public void setVidaActual(int vidaActual) {
-        if (vidaActual < 0) this.vidaActual = 0;
-        else if (vidaActual > vidaMaxima) this.vidaActual = vidaMaxima;
-        else this.vidaActual = vidaActual;
+        if (vidaActual < 0)
+            this.vidaActual = 0;
+        else if (vidaActual > vidaMaxima)
+            this.vidaActual = vidaMaxima;
+        else
+            this.vidaActual = vidaActual;
     }
 
     public void setNivel(int nivel) {
-        if (nivel <= 0) throw new IllegalArgumentException("El nivel debe ser mayor a 0.");
+        if (nivel <= 0)
+            throw new IllegalArgumentException("El nivel debe ser mayor a 0.");
         this.nivel = nivel;
     }
 
     public abstract void atacar(Enemigo e) throws ManaInsuficienteException;
+
     public abstract void bloquear();
 
     @Override
-    public boolean estaVivo() { return vidaActual > 0; }
+    public boolean estaVivo() {
+        return vidaActual > 0;
+    }
 
     @Override
     public void recibirDanio(int cantidad) {
@@ -115,11 +127,27 @@ public abstract class Personaje implements Vida {
         System.out.println(nombre + " recibe " + danioRecibido + " de daño. Vida: " + vidaActual);
     }
 
-    
-    public String getNombre() { return nombre; }
-    public int getNivel() { return nivel; }
-    public int getVidaActual() { return vidaActual; }
-    public int getVidaMaxima() { return vidaMaxima; }
-    public int getDanio() { return danio; }
-    public void setBloqueando(boolean b) { this.bloqueando = b; }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getVidaActual() {
+        return vidaActual;
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public int getDanio() {
+        return danio;
+    }
+
+    public void setBloqueando(boolean b) {
+        this.bloqueando = b;
+    }
 }

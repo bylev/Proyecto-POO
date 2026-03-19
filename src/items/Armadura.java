@@ -1,6 +1,6 @@
 package items;
 
-import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
+import excepciones.ObjetoNoPosibleException;
 import interfaces.Durable;
 import personajes.Personaje;
 
@@ -11,16 +11,30 @@ public class Armadura extends Item implements Durable {
 
     public Armadura(String nombre, int cantidad, int defensa, int durabilidadMaxima) {
         super(nombre, cantidad);
-        if (defensa <= 0) throw new IllegalArgumentException("La defensa debe ser mayor a 0.");
+        if (defensa <= 0)
+            throw new IllegalArgumentException("La defensa debe ser mayor a 0.");
         this.defensa = defensa;
         this.durabilidadMaxima = durabilidadMaxima;
         this.durabilidadActual = durabilidadMaxima;
     }
 
+    /* Getters */
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getDurabilidadActual() {
+        return durabilidadActual;
+    }
+
+    public int getDurabilidadMaxima() {
+        return durabilidadMaxima;
+    }
+
     @Override
     public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
         if (estaRota()) {
-            throw new ObjetoNoPosibleException(this.durabilidadActual);
+            throw new ObjetoNoPosibleException("La durabilidad no puede ser 0 y tiene " + getDurabilidadActual());
         } else {
             p.setArmadura(this);
         }
@@ -37,5 +51,7 @@ public class Armadura extends Item implements Durable {
     }
 
     @Override
-    public boolean estaRota() { return durabilidadActual <= 0; }
+    public boolean estaRota() {
+        return durabilidadActual <= 0;
+    }
 }

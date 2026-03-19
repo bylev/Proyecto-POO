@@ -2,11 +2,12 @@ import items.Arma;
 import items.Armadura;
 import items.Consumible;
 import modelo.SistemaJuego;
+import excepciones.*;
 import personajes.*;
 import enemigos.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ManaInsuficienteException, ObjetoNoPosibleException {
 
         SistemaJuego juego = new SistemaJuego("Mundo RPG");
 
@@ -44,6 +45,7 @@ public class Main {
         juego.iniciarBatalla(aragorn, dragon);
         juego.iniciarBatalla(gandalf, esqueleto);
 
+        // usar consumible
         juego.usarConsumible(aragorn);
         juego.usarConsumible(gandalf);
 

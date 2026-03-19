@@ -1,6 +1,6 @@
 package items;
 
-import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
+import excepciones.ObjetoNoPosibleException;
 import personajes.Personaje;
 
 public class Consumible extends Item {
@@ -9,15 +9,19 @@ public class Consumible extends Item {
 
     public Consumible(String nombre, int cantidad, int vidaRestaurada) {
         super(nombre, cantidad);
-        if (vidaRestaurada <= 0) throw new IllegalArgumentException("Debe restaurar vida.");
+        if (vidaRestaurada <= 0)
+            throw new IllegalArgumentException("Debe restaurar vida.");
         this.vidaRestaurada = vidaRestaurada;
     }
 
-    public void setPersonaje(Personaje p) { this.p = p; }
+    public void setPersonaje(Personaje p) {
+        this.p = p;
+    }
 
     @Override
     public void usar() throws ObjetoNoPosibleException {
-        if (p == null) return;
+        if (p == null)
+            return;
         if (cantidad > 0) {
             p.setVidaActual(p.getVidaActual() + vidaRestaurada);
             cantidad--;
@@ -27,7 +31,7 @@ public class Consumible extends Item {
 
     @Override
     public void equiparEn(Personaje p) {
-        
+
         p.setConsumible(this);
     }
 }

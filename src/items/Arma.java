@@ -1,6 +1,6 @@
 package items;
 
-import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
+import excepciones.ObjetoNoPosibleException;
 import interfaces.Durable;
 import personajes.Personaje;
 
@@ -11,25 +11,39 @@ public class Arma extends Item implements Durable {
 
     public Arma(String nombre, int cantidad, int danio, int durabilidadMaxima) {
         super(nombre, cantidad);
-        if (danio <= 0) throw new IllegalArgumentException("El daño debe ser mayor a 0.");
+        if (danio <= 0)
+            throw new IllegalArgumentException("El daño debe ser mayor a 0.");
         this.danio = danio;
         this.durabilidadMaxima = durabilidadMaxima;
         this.durabilidadActual = durabilidadMaxima;
     }
 
+    /* Getters */
+    public int getDanio() {
+        return danio;
+    }
+
+    public int getDurabilidadActual() {
+        return durabilidadActual;
+    }
+
+    public int getDurabilidadMaxima() {
+        return durabilidadMaxima;
+    }
+
     @Override
     public void equiparEn(Personaje p) throws ObjetoNoPosibleException {
         if (estaRota()) {
-            throw new ObjetoNoPosibleException(this.durabilidadActual);
+            throw new ObjetoNoPosibleException("El arma está rota. No se puede equipar.");
         } else {
-            // Llama al método de Personaje que ahora maneja la lista
-            p.setArma(this); 
+            p.setArma(this);
         }
     }
 
     @Override
     public void usar() throws ObjetoNoPosibleException {
-        if (estaRota()) throw new ObjetoNoPosibleException(this.durabilidadActual);
+        if (estaRota())
+            throw new ObjetoNoPosibleException("El arma está rota.");
         System.out.println("Usando arma: " + nombre);
     }
 
@@ -39,6 +53,7 @@ public class Arma extends Item implements Durable {
     }
 
     @Override
-    public boolean estaRota() { return durabilidadActual <= 0; }
-    public int getDanio() { return danio; }
+    public boolean estaRota() {
+        return durabilidadActual <= 0;
+    }
 }

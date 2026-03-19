@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import enemigos.Enemigo;
+import excepciones.*;
 import items.*;
 import personajes.Personaje;
+import modelo.Inventario;
 
 public class SistemaJuego {
     private String nombre;
@@ -41,6 +43,7 @@ public class SistemaJuego {
     public void darArma(Personaje p, Arma a) {
         if (p == null || a == null)
             return;
+        p.setArma(a);
         p.getInventario().agregarArma(a);
         System.out.println("[" + nombre + "]" + a.getNombre() + " agregada al inventario de " + p.getNombre());
     }
@@ -48,6 +51,7 @@ public class SistemaJuego {
     public void darArmadura(Personaje p, Armadura a) {
         if (p == null || a == null)
             return;
+        p.setArmadura(a);
         p.getInventario().agregarArmadura(a);
         System.out.println("[" + nombre + "]" + a.getNombre() + " agregada al inventario de " + p.getNombre());
     }
@@ -55,19 +59,20 @@ public class SistemaJuego {
     public void darConsumible(Personaje p, Consumible c) {
         if (p == null || c == null)
             return;
+        p.setConsumible(c);
         p.getInventario().agregarConsumible(c);
         System.out.println("[" + nombre + "]" + c.getNombre() + " agregada al inventario de " + p.getNombre());
     }
 
     /* Equipar */
-    public void equiparItem(Personaje p, Item i) {
+    public void equiparItem(Personaje p, Item i) throws ObjetoNoPosibleException {
         if (p == null || i == null)
             return;
         i.equiparEn(p);
     }
 
     // Iniciar batalla
-    public void iniciarBatalla(Personaje p, Enemigo e) {
+    public void iniciarBatalla(Personaje p, Enemigo e) throws ManaInsuficienteException {
         if (p == null || e == null) {
             System.out.println("No hay personaje o enemigo para iniciar la batalla.");
             return;
@@ -96,7 +101,7 @@ public class SistemaJuego {
         System.out.println("\n========================================================");
     }
 
-    public void usarConsumible(Personaje p) {
+    public void usarConsumible(Personaje p) throws ObjetoNoPosibleException {
         if (p == null)
             return;
         if (!p.estaVivo()) {

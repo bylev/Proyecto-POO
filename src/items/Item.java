@@ -1,6 +1,6 @@
 package items;
 
-import ExcepcionesPersonalizadas.ObjetoNoPosibleException;
+import excepciones.ObjetoNoPosibleException;
 import personajes.Personaje;
 
 public abstract class Item {
@@ -18,9 +18,17 @@ public abstract class Item {
 
     public abstract void equiparEn(Personaje p) throws ObjetoNoPosibleException;
 
-    public String getNombre() { return nombre; }
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = (cantidad < 0) ? 0 : cantidad; }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = (cantidad < 0) ? 0 : cantidad;
+    }
 
     @Override
     public String toString() {
